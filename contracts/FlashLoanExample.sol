@@ -11,4 +11,12 @@ contract FlashLoanExample is FlashLoanSimpleReceiverBase {
     constructor(IPoolAddressesProvider provider)
         FlashLoanSimpleReceiverBase(provider)
     {}
+
+    function createFlashLoan(address asset, uint256 amount) external {
+        address receiver = address(this);
+        bytes memory params = ""; // we use this to pass arbitrary data to executeOperation
+        uint16 referralCode = 0;
+
+        POOL.flashLoanSimple(receiver, asset, amount, params, referralCode);
+    }
 }
